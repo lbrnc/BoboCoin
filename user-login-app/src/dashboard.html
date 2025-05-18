@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoboCoin Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <img src="assets/bobocoin-logo.png" alt="BoboCoin Logo" style="width: 80px; margin-bottom: 20px;">
+        <h1>Ihr BoboCoin-Konto</h1>
+        <p id="balanceMessage"></p>
+        <div class="actions">
+            <button id="transferButton"><i class="fas fa-paper-plane"></i> Überweisen</button>
+            <button id="logoutButton"><i class="fas fa-sign-out-alt"></i> Abmelden</button>
+        </div>
+    </div>
+    <script>
+        // Retrieve balance from localStorage
+        const balance = localStorage.getItem("boboBalance");
+        document.getElementById("balanceMessage").textContent = `Ihr Guthaben beträgt: ${balance} BoboCoins.`;
+
+        // Handle "Abmelden" button click
+        document.getElementById("logoutButton").addEventListener("click", function () {
+            localStorage.removeItem("boboBalance");
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("currentUserName");
+            window.location.href = "index.html";
+        });
+
+        // Handle "Überweisen" button click
+        document.getElementById("transferButton").addEventListener("click", function () {
+            window.location.href = "transfer.html";
+        });
+    </script>
+</body>
+</html>

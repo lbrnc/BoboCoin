@@ -1,0 +1,21 @@
+{
+  "name": "user-login-app",
+  "version": "1.0.0",
+  "description": "Eine Benutzeranmeldungsanwendung, die einen 4-stelligen Code erfordert.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build process not defined yet.'"
+  },
+  "keywords": [
+    "login",
+    "user",
+    "4-digit code",
+    "German"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

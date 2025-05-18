@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoboCoin Überweisen</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Überweisen</h1>
+        <form id="transferForm">
+            <label for="recipientName">Empfänger (Name.Nachname):</label>
+            <input type="text" id="recipientName" placeholder="Name.Nachname" required>
+            
+            <label for="amount">Betrag (BoboCoins):</label>
+            <input type="number" id="amount" min="1" placeholder="Betrag eingeben" required>
+            
+            <button type="submit">Senden</button>
+        </form>
+        <p id="message"></p>
+        <button id="backButton">Zurück</button>
+    </div>
+    <script>
+        document.getElementById("transferForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const recipientName = document.getElementById("recipientName").value;
+            const amount = parseInt(document.getElementById("amount").value);
+            const senderCode = localStorage.getItem("currentUser");
+            const senderBalance = parseInt(localStorage.getItem("boboBalance"));
+
+            const userBalances = JSON.parse(localStorage.getItem("userBalances"));
+            const messageElement = document.getElementById("message");
+
+            // Find recipient by name
+            const recipientCode = Object.keys(userBalances).find(
+                (code) => userBalances[code].name.toLowerCase() === recipientName.trim().toLowerCase()
+            );
+
+            if (!recipientCode) {
+                messageElement.style.color = "red";
+                messageElement.textContent = "Empfänger existiert nicht.";
+                return;
+            }
+
+            if (amount > senderBalance) {
+                messageElement.style.color = "red";
+                messageElement.textContent = "Nicht genügend Guthaben.";
+                return;
+            }
+
+            if (!recipientName || amount <= 0 || isNaN(amount)) {
+                messageElement.style.color = "red";
+                messageElement.textContent = "Ungültige Eingabe.";
+                return;
+            }
+
+            userBalances[senderCode].balance -= amount;
+            userBalances[recipientCode].balance += amount;
+
+            localStorage.setItem("boboBalance", userBalances[senderCode].balance);
+            localStorage.setItem("userBalances", JSON.stringify(userBalances));
+
+            messageElement.style.color = "green";
+            messageElement.textContent = `Erfolgreich ${amount} BoboCoins an ${recipientName} gesendet!`;
+
+            document.getElementById("recipientName").value = "";
+            document.getElementById("amount").value = "";
+        });
+
+        document.getElementById("backButton").addEventListener("click", function () {
+            window.location.href = "dashboard.html";
+        });
+    </script>
+</body>
+</html>

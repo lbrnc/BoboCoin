@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoboCoin Login</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>BoboCoin Login</h1>
+        <form id="loginForm">
+            <label for="nameInput">Name (Name.Nachname):</label>
+            <input type="text" id="nameInput" placeholder="Name.Nachname" required>
+            
+            <label for="codeInput">Code:</label>
+            <input type="text" id="codeInput" maxlength="4" placeholder="4-stelliger Code" required>
+            
+            <button type="submit" id="submitButton">Einloggen</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
